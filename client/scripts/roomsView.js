@@ -17,6 +17,9 @@ var RoomsView = {
 
   renderRoom: function(roomname) {
     // TODO: Render out a single room.
+    var template = _.template(`<div class="room"><%- roomname ></div>`);
+    RoomsView.$select.append(template({roomname: roomname}));
+    console.log(RoomsView.$select);
   },
 
   handleChange: function(event) {
