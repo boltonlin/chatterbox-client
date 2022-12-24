@@ -9,6 +9,7 @@ var RoomsView = {
   initialize: function() {
     // TODO: Perform any work which needs to be done
     // when this view loads.
+    RoomsView.$button.on('click', RoomsView.handleClick);
   },
 
   render: function() {
@@ -28,6 +29,8 @@ var RoomsView = {
 
   handleClick: function(event) {
     // TODO: Handle the user clicking the "Add Room" button.
+    var roomname = 'PLACEHOLDER';
+    Rooms.add(roomname);
   }
 
 };
