@@ -28,7 +28,7 @@ var RoomsView = {
   },
 
   handleClick: function(event) {
-    // TODO: Handle the user clicking the "Add Room" button.
+    // TODO: assign roomname to smth user inputs
     var roomname = 'PLACEHOLDER';
     Rooms.add(roomname);
   }
