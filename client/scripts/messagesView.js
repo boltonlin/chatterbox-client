@@ -8,6 +8,7 @@ var MessagesView = {
   initialize: function() {
     // TODO: Perform any work which needs to be done
     // when this view loads.
+    MessagesView.$chats.on('click', $('.username'), MessagesView.handleClick);
   },
 
   render: function() {
@@ -21,6 +22,9 @@ var MessagesView = {
   handleClick: function(event) {
     // TODO: handle a user clicking on a message
     // (this should add the sender to the user's friend list).
+    var username = event.target.innerText
+    Friends.toggleStatus(username);
+    console.log(Friends.list);
   }
 
 };
