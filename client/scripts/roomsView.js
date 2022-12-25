@@ -11,6 +11,7 @@ var RoomsView = {
     // when this view loads.
     RoomsView.$button.on('click', RoomsView.handleClick);
     RoomsView.$select.on('change', RoomsView.handleChange);
+    Rooms.set('lobby');
   },
 
   render: function(roomlist) {
@@ -33,11 +34,14 @@ var RoomsView = {
     // Multiple ways to get value of select...
     // RoomsView.$select.val(), event.target.value,
     // RoomsView.$select.find(':selected').val()
+    Rooms.set(RoomsView.$select.val());
   },
 
   handleClick: function(event) {
     var roomname = window.prompt('Enter a room name');
     Rooms.add(roomname);
+    RoomsView.renderRoom(roomname);
+    Rooms.set(roomname);
     //TODO: somehow send the server a request to make a room
   }
 
