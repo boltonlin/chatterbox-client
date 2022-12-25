@@ -10,15 +10,16 @@ var FormView = {
 
   initialize: function() {
     //TODO: figure out why submit form button is broken with/without comments
-    // FormView.$form.on('submit', null, FormView.$message.val(), FormView.handleSubmit);
-    FormView.$message.on('focus', FormView.handleClick);
     FormView.$username.text(App.username);
-    FormView.$message.val('Enter message here');
+    FormView.$message.attr('placeholder', 'Enter message here');
+    FormView.$form.on('submit', null, FormView.$message, FormView.handleSubmit);
   },
 
   handleSubmit: function(event) {
     //TODO: want to create a message object with correct username and stuff
+    event.preventDefault();
     console.log(App.username);
+    console.log(event);
     console.log(event.data);
     console.log(Rooms.get());
     Messages.create(App.username, event.data, Rooms.get());
@@ -28,9 +29,5 @@ var FormView = {
     var status = active ? 'true' : null;
     FormView.$form.find('input[type=submit]').attr('disabled', status);
   },
-
-  handleClick: function(event) {
-    event.target.select();
-  }
 
 };
