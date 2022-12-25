@@ -4,21 +4,33 @@
 
 var FormView = {
 
-  $form: $('form'),
+  $form: $('#send'),
+  $message: $('#message'),
+  $username: $('#send .username'),
 
   initialize: function() {
-    FormView.$form.on('submit', FormView.handleSubmit);
+    //TODO: figure out why submit form button is broken with/without comments
+    // FormView.$form.on('submit', null, FormView.$message.val(), FormView.handleSubmit);
+    FormView.$message.on('focus', FormView.handleClick);
+    FormView.$username.text(App.username);
+    FormView.$message.val('Enter message here');
   },
 
   handleSubmit: function(event) {
     //TODO: want to create a message object with correct username and stuff
-    var message = $('#message').val();
-    Parse.create({text: message});
+    console.log(App.username);
+    console.log(event.data);
+    console.log(Rooms.get());
+    Messages.create(App.username, event.data, Rooms.get());
   },
 
   setStatus: function(active) {
     var status = active ? 'true' : null;
     FormView.$form.find('input[type=submit]').attr('disabled', status);
+  },
+
+  handleClick: function(event) {
+    event.target.select();
   }
 
 };
