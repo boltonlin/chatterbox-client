@@ -14,7 +14,9 @@ var MessagesView = {
   render: function(messages) {
     // TODO: Render _all_ the messages.
     messages.forEach((message) => {
-      if (!(message.username === null && message.text === null && message.roomname === null))
+      if (!(message.username === null &&
+            message.text === null &&
+            message.roomname === null))
         MessagesView.renderMessage(message);
     });
   },
@@ -26,8 +28,10 @@ var MessagesView = {
   handleClick: function(event) {
     // TODO: handle a user clicking on a message
     // (this should add the sender to the user's friend list).
+    // TODO: need to not add any innertext to friends list
     var username = event.target.innerText
     Friends.toggleStatus(username);
+    console.log(Friends.list);
   }
 
 };
