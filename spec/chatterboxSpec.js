@@ -69,7 +69,8 @@ describe('chatterbox', function() {
       var message = {
         username: 'Mel Brooks',
         text: 'Never underestimate the power of the Schwartz!',
-        roomname: 'lobby'
+        roomname: 'lobby',
+        github_handle: 'PLACEHOLDER'
       };
       MessagesView.renderMessage(message);
       expect($('#chats').children().length).to.equal(1);
@@ -90,7 +91,8 @@ describe('chatterbox', function() {
       MessagesView.renderMessage({
         username: 'Mel Brooks',
         text: 'I didn\'t get a harumph outa that guy.!',
-        roomname: 'lobby'
+        roomname: 'lobby',
+        github_handle: 'PLACEHOLDER'
       });
       $('#chats').find('.username').trigger('click');
       expect(Friends.toggleStatus.called).to.be.true;
