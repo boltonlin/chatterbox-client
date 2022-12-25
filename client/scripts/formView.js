@@ -18,7 +18,7 @@ var FormView = {
   handleSubmit: function(event) {
     //TODO: want to create a message object with correct username and stuff
     event.preventDefault();
-    Messages.create(App.username, event.data.val(), Rooms.get());
+    Messages.post(App.username, event.data.val(), Rooms.get());
     event.data.val('');
     event.data.attr('placeholder', 'Message sent!')
     setTimeout(() => {
