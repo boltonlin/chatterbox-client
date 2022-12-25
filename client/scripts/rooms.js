@@ -5,17 +5,17 @@
 var Rooms = {
 
   // TODO: Define how you want to store the list of rooms
-  _data: {},
+  list: {},
 
   // TODO: Define methods which allow you to add rooms, update the list,
   // mark a room as selected, etc.
 
   add: function (roomname) {
-    Rooms._data[roomname] = roomname;
+    Rooms.list[roomname] = roomname;
   },
 
   get: function (roomname) {
-    return Rooms._data[roomname];
+    return Rooms.list[roomname];
   },
 
   exists: function (roomname) {
