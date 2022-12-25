@@ -8,30 +8,37 @@ var MessagesView = {
   initialize: function() {
     // TODO: Perform any work which needs to be done
     // when this view loads.
-    MessagesView.$chats.on('click', $('.username'), MessagesView.handleClick);
   },
 
+  // should render ALL messages
   render: function(messages) {
-    // TODO: Render _all_ the messages.
     messages.forEach((message) => {
       if (!(message.username === null &&
             message.text === null &&
-            message.roomname === null))
+            message.roomname === null)) {
+        Messages.add(message)
+       }
+    });
+    Messages.get().forEach((message) => {
+      if (!message.seen) {
         MessagesView.renderMessage(message);
+        message.seen = true;
+        // console.log(message);
+      }
     });
   },
 
+  // renders message and attach on-click event to its username
   renderMessage: function(message) {
-    MessagesView.$chats.append(MessageView.render(message));
+    let $message = $(MessageView.render(message));
+    let $username = $message.find('.username');
+    $username.on('click', MessagesView.handleClick);
+    MessagesView.$chats.prepend($message);
   },
 
   handleClick: function(event) {
-    // TODO: handle a user clicking on a message
-    // (this should add the sender to the user's friend list).
-    // TODO: need to not add any innertext to friends list
-    var username = event.target.innerText
+    let username = event.target.innerText
     Friends.toggleStatus(username);
-    console.log(Friends.list);
   }
 
 };
