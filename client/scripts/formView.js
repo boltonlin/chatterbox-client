@@ -20,7 +20,10 @@ var FormView = {
     event.preventDefault();
     Messages.create(App.username, event.data.val(), Rooms.get());
     event.data.val('');
-    event.data.attr('placeholder', 'Message sent!');
+    event.data.attr('placeholder', 'Message sent!')
+    setTimeout(() => {
+      event.data.attr('placeholder', 'Enter message here')
+    }, 3000);
   },
 
   setStatus: function(active) {
