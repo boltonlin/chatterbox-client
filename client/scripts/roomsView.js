@@ -10,6 +10,7 @@ var RoomsView = {
     // TODO: Perform any work which needs to be done
     // when this view loads.
     RoomsView.$button.on('click', RoomsView.handleClick);
+    RoomsView.$select.on('change', RoomsView.handleChange);
   },
 
   render: function(roomlist) {
@@ -29,13 +30,15 @@ var RoomsView = {
   },
 
   handleChange: function(event) {
-    // TODO: Handle a user selecting a different room.
+    // Multiple ways to get value of select...
+    // RoomsView.$select.val(), event.target.value,
+    // RoomsView.$select.find(':selected').val()
   },
 
   handleClick: function(event) {
-    // TODO: assign roomname to smth user inputs
-    var roomname = 'PLACEHOLDER';
+    var roomname = window.prompt('Enter a room name');
     Rooms.add(roomname);
+    //TODO: somehow send the server a request to make a room
   }
 
 };
