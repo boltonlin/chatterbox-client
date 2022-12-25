@@ -25,11 +25,10 @@ var App = {
 
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
-      // examine the response from the server request:
       MessagesView.render(data);
-      // TODO: Use the data to update Messages and Rooms
-      // and re-render the corresponding views.
+      RoomsView.render(data.map(message => message.roomname));
     });
+    callback();
   },
 
   startSpinner: function() {

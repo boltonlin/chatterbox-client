@@ -12,15 +12,20 @@ var RoomsView = {
     RoomsView.$button.on('click', RoomsView.handleClick);
   },
 
-  render: function() {
-    // TODO: Render out the list of rooms.
+  render: function(roomlist) {
+    roomlist.forEach(room => {
+      if (!Rooms.exists(room)) {
+        RoomsView.renderRoom(room);
+        Rooms.add(room);
+      }
+    });
   },
 
   renderRoom: function(roomname) {
-    // TODO: Render out a single room.
-    var template = _.template(`<div class="room"><%- roomname ></div>`);
+    var template = _.template(
+      '<option value="<%- roomname %>"><%- roomname %></option>'
+      );
     RoomsView.$select.append(template({roomname: roomname}));
-    console.log(RoomsView.$select);
   },
 
   handleChange: function(event) {

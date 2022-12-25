@@ -12,6 +12,15 @@ var Rooms = {
 
   add: function (roomname) {
     Rooms._data[roomname] = roomname;
-  }
+  },
+
+  get: function (roomname) {
+    return Rooms._data[roomname];
+  },
+
+  exists: function (roomname) {
+    if (Rooms.get(roomname)) return true;
+    else return false;
+  },
 
 };
