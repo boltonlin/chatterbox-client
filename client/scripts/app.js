@@ -25,6 +25,7 @@ var App = {
 
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
+      console.log(data);
       MessagesView.render(data);
       RoomsView.render(data.map(message => message.roomname));
     });
