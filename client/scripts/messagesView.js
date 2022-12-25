@@ -11,12 +11,16 @@ var MessagesView = {
     MessagesView.$chats.on('click', $('.username'), MessagesView.handleClick);
   },
 
-  render: function() {
+  render: function(messages) {
     // TODO: Render _all_ the messages.
+    messages.forEach((message) => {
+      if (!(message.username === null && message.text === null && message.roomname === null))
+        MessagesView.renderMessage(message);
+    });
   },
 
   renderMessage: function(message) {
-    MessagesView.$chats.prepend(MessageView.render(message));
+    MessagesView.$chats.append(MessageView.render(message));
   },
 
   handleClick: function(event) {
