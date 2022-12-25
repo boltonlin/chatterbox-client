@@ -10,4 +10,10 @@ var Messages = {
   // TODO: Define methods which allow you to retrieve from,
   // add to, and generally interact with the messages.
 
+  create: function (username, text, roomname) {
+    Parse.create({username: username, text: text, roomname: roomname});
+    //TODO: want to tell app to fetch after sending a message
+    // App.fetch();
+  },
+
 };
