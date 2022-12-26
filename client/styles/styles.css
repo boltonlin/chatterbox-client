@@ -96,6 +96,10 @@ form input[type=text] {
     background-color: #0090da;
 }
 
+.friend:hover {
+    background-color: #65b2d9
+}
+
 .highlight {
     border: 3px dotted red;
 }
