@@ -7,7 +7,6 @@ var Parse = {
   server: `https://app-hrsei-api.herokuapp.com/api/chatterbox/messages/${window.CAMPUS}`,
 
   create: function(message, successCB, errorCB = null) {
-    // TODO: remove when actually want to post to server
     $.ajax({
       url: Parse.server,
       type: 'POST',
