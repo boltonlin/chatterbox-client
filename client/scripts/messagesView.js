@@ -10,20 +10,12 @@ var MessagesView = {
     // when this view loads.
   },
 
-  // should render ALL messages
+  // should render ALL messages for specified room
   render: function(messages) {
-    messages.forEach((message) => {
-      if (!(message.username === null &&
-            message.text === null &&
-            message.roomname === null)) {
-        Messages.add(message)
-       }
-    });
     Messages.get().forEach((message) => {
       if (!message.seen) {
         MessagesView.renderMessage(message);
         message.seen = true;
-        // console.log(message);
       }
     });
   },

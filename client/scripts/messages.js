@@ -10,17 +10,27 @@ var Messages = {
 
   // TODO: Define methods which allow you to retrieve from,
   // add to, and generally interact with the messages.
-  add: function (message) {
-    if (!Messages._list[message.message_id]) {
-      Messages._list[message.message_id] = message;
-      Messages._size++;
-      return true;
-    }
-    return false;
+  add: function (messages) {
+    messages.forEach((message) => {
+      if (Messages.isValid(message)) {
+        Messages._list[message.message_id] = message;
+        Messages._size++;
+      }
+    });
+    MessagesView.render(Object.values(Messages._list));
   },
 
   get: function () {
     return Object.values(Messages._list);
+  },
+
+  isValid: function(message) {
+    if (!Messages._list[message.message_id] &&
+        !(message.username === null &&
+        message.text === null &&
+        message.roomname === null))
+    return true;
+    else return false;
   },
 
   post: function (username, text, roomname) {
