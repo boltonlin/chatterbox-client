@@ -16,7 +16,6 @@ var App = {
     MessagesView.initialize();
 
     App.refresh();
-
   },
 
   fetch: function(callback = ()=>{}) {
@@ -40,5 +39,8 @@ var App = {
   stopSpinner: function() {
     App.$spinner.fadeOut('fast');
     FormView.setStatus(false);
-  }
+  },
+
+  clean: _.template('<%- input %>'),
+
 };
