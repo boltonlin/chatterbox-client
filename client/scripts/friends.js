@@ -10,6 +10,16 @@ var Friends = {
   // TODO: Define methods which allow you to add, toggle,
   // and check the friendship status of other users.
 
+  get: function () {
+    return Friends._list;
+  },
+
+  exists: function (username) {
+    if (Object.keys(Friends._list).includes(username))
+    return true;
+    else return false;
+  },
+
   toggleStatus: function (username) {
     if (!!Friends._list[username]) {
       delete Friends._list[username];

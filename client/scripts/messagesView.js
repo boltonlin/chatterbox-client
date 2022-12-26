@@ -22,10 +22,13 @@ var MessagesView = {
 
   // renders message and attaches any events to the individual chat element
   renderMessage: function(message) {
-    let $message = $(MessageView.render(message));
-    let $username = $message.find('.username');
+    // Messages.clean(message);
+    let $chat = $(MessageView.render(message));
+    let $username = $chat.find('.username');
     $username.on('click', MessagesView.handleClick);
-    MessagesView.$chats.prepend($message);
+    if (Friends.exists(message.username))
+      $chat.toggleClass('friend');
+    MessagesView.$chats.prepend($chat);
   },
 
   handleClick: function(event) {
