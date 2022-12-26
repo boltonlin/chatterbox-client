@@ -10,17 +10,17 @@ var MessagesView = {
     // when this view loads.
   },
 
-  // should render ALL messages for specified room
-  render: function(messages) {
+  render: function(messages, roomname) {
+    MessagesView.clear();
     Messages.get().forEach((message) => {
-      if (!message.seen) {
+      if (!message.seen && message.roomname === roomname) {
         MessagesView.renderMessage(message);
         message.seen = true;
       }
     });
   },
 
-  // renders message and attach on-click event to its username
+  // renders message and attaches any events to the individual chat element
   renderMessage: function(message) {
     let $message = $(MessageView.render(message));
     let $username = $message.find('.username');
@@ -31,6 +31,12 @@ var MessagesView = {
   handleClick: function(event) {
     let username = event.target.innerText
     Friends.toggleStatus(username);
+  },
+
+  // clears $chats and reset all seen values
+  clear: function () {
+    MessagesView.$chats.empty();
+    Messages.refreshSeen();
   }
 
 };

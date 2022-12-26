@@ -7,8 +7,6 @@ var RoomsView = {
   $select: $('#rooms select'),
 
   initialize: function() {
-    // TODO: Perform any work which needs to be done
-    // when this view loads.
     RoomsView.$button.on('click', RoomsView.handleClick);
     RoomsView.$select.on('change', RoomsView.handleChange);
   },
@@ -29,12 +27,7 @@ var RoomsView = {
   },
 
   handleChange: function(event) {
-    // NOTE: Multiple ways to get value of select...
-    // RoomsView.$select.val(), event.target.value,
-    // RoomsView.$select.find(':selected').val()
-
-    // c- sets the room for message posts
-    Rooms.set(RoomsView.$select.val());
+    Rooms.change(RoomsView.$select.val());
   },
 
   handleClick: function(event) {
@@ -42,8 +35,7 @@ var RoomsView = {
     Rooms.add([roomname]);
     RoomsView.renderRoom(roomname);
     RoomsView.$select.val(roomname);
-    Rooms.set(roomname);
-    //TODO: somehow send the server a request to make a room?
+    Rooms.change(roomname);
   }
 
 };

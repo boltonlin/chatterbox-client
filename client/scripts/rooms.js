@@ -4,12 +4,8 @@
 
 var Rooms = {
 
-  // TODO: Define how you want to store the list of rooms
   _list: {},
   _current: 'lobby',
-
-  // TODO: Define methods which allow you to add rooms, update the list,
-  // mark a room as selected, etc.
 
   add: function (data) {
     data.map(message => message.roomname)
@@ -20,13 +16,18 @@ var Rooms = {
     RoomsView.render(Object.values(Rooms._list));
   },
 
-  // gets current room
   get: function () {
     return Rooms._current;
   },
 
   set: function (roomname) {
     Rooms._current = roomname;
+  },
+
+  // sets _current then asks the app to refresh
+  change: function (roomname) {
+    Rooms.set(roomname);
+    App.refresh();
   },
 
   exists: function (roomname) {
