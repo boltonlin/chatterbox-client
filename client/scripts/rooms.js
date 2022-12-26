@@ -22,6 +22,7 @@ var Rooms = {
 
   set: function (roomname) {
     Rooms._current = roomname;
+    RoomsView.selectRoom(roomname);
   },
 
   // sets _current then asks the app to refresh
