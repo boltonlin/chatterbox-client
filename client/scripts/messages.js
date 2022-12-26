@@ -33,7 +33,7 @@ var Messages = {
   post: function (username, text, roomname) {
     let message = {username: username, text: text, roomname: roomname}
     Parse.create(message);
-    App.refresh();
+    App.refresh(App.stopSpinner);
   },
 
   refreshSeen: function () {
