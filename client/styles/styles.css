@@ -103,3 +103,34 @@ form input[type=text] {
 .highlight {
     border: 3px dotted red;
 }
+
+/* Style the tab */
+#tablist {
+    margin: auto;
+    width: 500px;
+    overflow: hidden;
+    padding: 0px 60px;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+#tablist button {
+    background-color: inherit;
+    float: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+#tablist button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+#tablist button.active {
+    background-color: #ccc;
+}

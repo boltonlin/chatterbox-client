@@ -46,7 +46,7 @@ var RoomsView = {
 
   // should talk to tabs and add a tab with room name
   handleTab: function(event) {
-
+    Tabs.add(Rooms.get());
   }
 
 };

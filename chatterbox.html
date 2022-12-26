@@ -28,7 +28,8 @@
       <div id="rooms">
         Room:
         <select></select>
-        <button>Add Room</button>
+        <button id="addRoom">Add Room</button>
+        <button id="keepTabs">Keep tabs</button>
       </div>
       <form action="#" id="send" method="post">
         <div class="username"></div>
@@ -36,6 +37,7 @@
         <input type="submit" name="submit" class="submit"/>
       </form>
     </div>
+    <div id="tablist" value="default"></div>
     <div id="chats"></div>
     <script src="client/env/config.js"></script>
     <script src="client/scripts/parse.js"></script>
@@ -46,6 +48,8 @@
     <script src="client/scripts/roomsView.js"></script>
     <script src="client/scripts/messageView.js"></script>
     <script src="client/scripts/messagesView.js"></script>
+    <script src="client/scripts/tabs.js"></script>
+    <script src="client/scripts/tabsView.js"></script>
     <script src="client/scripts/app.js"></script>
     <script>
       $(() => App.initialize());

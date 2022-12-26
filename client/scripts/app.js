@@ -27,6 +27,7 @@ var App = {
   // only for initial
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
+      console.log(data);
       Messages.add(data);
       Rooms.add(data);
       Rooms.set(Rooms.get());

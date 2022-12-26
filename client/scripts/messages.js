@@ -17,8 +17,11 @@ var Messages = {
     MessagesView.render(Object.values(Messages._list), Rooms.get());
   },
 
-  get: function () {
-    return Object.values(Messages._list);
+  get: function (roomname) {
+    if (!!roomname) {
+      return Object.values(Messages._list).filter(message =>
+        message.roomname === roomname);
+    } else return Object.values(Messages._list);
   },
 
   isValid: function(message) {
