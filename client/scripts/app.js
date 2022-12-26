@@ -26,6 +26,15 @@ var App = {
     callback();
   },
 
+  // should fetch messages only for selected room
+  fetchRoom: function (roomname, callback = ()=>{}) {
+    Parse.readRoom(roomname, (data) => {
+      Messages.add(data);
+      Rooms.add(data);
+    });
+    callback();
+  },
+
   refresh: function () {
     App.startSpinner();
     App.fetch(App.stopSpinner);

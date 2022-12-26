@@ -27,7 +27,8 @@ var Rooms = {
   // sets _current then asks the app to refresh
   change: function (roomname) {
     Rooms.set(roomname);
-    App.refresh();
+    App.startSpinner();
+    App.fetchRoom(roomname, App.stopSpinner);
   },
 
   exists: function (roomname) {

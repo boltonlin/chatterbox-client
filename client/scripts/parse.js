@@ -13,7 +13,7 @@ var Parse = {
       data: JSON.stringify(message),
       contentType: 'application/json',
       success: function (data) {
-        console.log('chatterbox: Message sent, message: ' + message.text);
+        console.log('chatterbox: sent ' + data[0].text);
       },
       error: errorCB || function(error) {
         console.error('chatterbox: Failed to send message', data);
@@ -32,6 +32,19 @@ var Parse = {
         console.error('chatterbox: Failed to fetch messages', error);
       }
     });
-  }
+  },
+
+  readRoom: function (room, successCB, errorCB = null) {
+    $.ajax({
+      url: Parse.server,
+      type: 'GET',
+      data: { order: '-createdAt', roomname: room },
+      contentType: 'application/json',
+      success: successCB,
+      error: errorCB || function(error) {
+        console.error('chatterbox: Failed to fetch messages', error);
+      }
+    });
+  },
 
 };
