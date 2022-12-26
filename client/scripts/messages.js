@@ -10,7 +10,6 @@ var Messages = {
 
   // TODO: Define methods which allow you to retrieve from,
   // add to, and generally interact with the messages.
-
   add: function (message) {
     if (!Messages._list[message.message_id]) {
       Messages._list[message.message_id] = message;
@@ -25,7 +24,8 @@ var Messages = {
   },
 
   post: function (username, text, roomname) {
-    Parse.create({username: username, text: text, roomname: roomname});
+    let message = {username: username, text: text, roomname: roomname}
+    Parse.create(message);
     App.startSpinner();
     App.fetch(App.stopSpinner);
   },
