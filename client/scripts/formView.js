@@ -12,18 +12,18 @@ var FormView = {
     //TODO: figure out why submit form button is broken with/without comments
     FormView.$username.text(App.username);
     FormView.$message.attr('placeholder', 'Enter message here');
-    FormView.$form.on('submit', null, FormView.$message, FormView.handleSubmit);
+    FormView.$form.on('submit', FormView.handleSubmit);
   },
 
   handleSubmit: function(event) {
     //TODO: want to create a message object with correct username and stuff
     event.preventDefault();
-    Messages.post(App.username, event.data.val(), Rooms.get());
-    event.data.val('');
-    event.data.attr('placeholder', 'Message sent!')
+    Messages.post(App.username, FormView.$message.val(), Rooms.get());
+    FormView.$message.val('');
+    FormView.$message.attr('placeholder', 'Message sent!')
     setTimeout(() => {
-      event.data.attr('placeholder', 'Enter message here')
-    }, 3000);
+      FormView.$message.attr('placeholder', 'Enter message here')
+    }, 1000);
   },
 
   setStatus: function(active) {
