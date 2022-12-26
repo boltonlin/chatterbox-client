@@ -20,7 +20,7 @@ var RoomsView = {
   },
 
   renderRoom: function(roomname) {
-    var template = _.template(
+    let template = _.template(
       '<option value="<%- roomname %>"><%- roomname %></option>'
       );
     RoomsView.$select.append(template({roomname: roomname}));
@@ -31,7 +31,7 @@ var RoomsView = {
   },
 
   handleClick: function(event) {
-    var roomname = window.prompt('Enter a room name');
+    let roomname = window.prompt('Enter a room name');
     Rooms.add([roomname]);
     RoomsView.renderRoom(roomname);
     RoomsView.$select.val(roomname);
