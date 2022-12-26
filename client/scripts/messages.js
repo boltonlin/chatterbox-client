@@ -4,12 +4,9 @@
 
 var Messages = {
 
-  // TODO: Define how you want to store your messages.
   _list: {},
   _size: 0,
 
-  // TODO: Define methods which allow you to retrieve from,
-  // add to, and generally interact with the messages.
   add: function (messages) {
     messages.forEach((message) => {
       if (Messages.isValid(message)) {
