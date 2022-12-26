@@ -15,13 +15,21 @@ var App = {
     RoomsView.initialize();
     MessagesView.initialize();
 
-    App.refresh();
+    App.startSpinner();
+    App.fetch(App.stopSpinner);
+
+    setInterval(() => {
+      App.startSpinner();
+      App.refresh(App.stopSpinner);
+    }, 5000);
   },
 
+  // only for initial
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
       Messages.add(data);
       Rooms.add(data);
+      Rooms.set(Rooms.get());
     });
     callback();
   },
@@ -35,9 +43,9 @@ var App = {
     callback();
   },
 
-  refresh: function () {
+  refresh: function (cb = ()=>{}) {
     App.startSpinner();
-    App.fetch(App.stopSpinner);
+    App.fetchRoom(Rooms.get(), cb);
   },
 
   startSpinner: function() {
