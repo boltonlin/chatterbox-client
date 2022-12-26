@@ -42,6 +42,12 @@ var Messages = {
   refreshSeen: function () {
     for (let id in Messages._list)
       Messages._list[id].seen = false;
+  },
+
+  clean: function (message) {
+    message.username = App.clean({input: message.username});
+    message.text = App.clean({input: message.text});
+    message.roomname = App.clean({input: message.roomname});
   }
 
 };
