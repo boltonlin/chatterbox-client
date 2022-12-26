@@ -6,8 +6,8 @@ var MessageView = {
   // here: https://underscorejs.org/#template.
   // TODO: Update this template accordingly.
   render: _.template(`
-      <div class="chat">
-        <span class="username"><%- username %></span> (<span class="github"><%= github_handle %></span>)
+      <div class="chat" value="<%- username %>">
+        <span class="username"><%- username %></span> (<span class="github"><%- github_handle %></span>)
         <div class="messageText"><%- text %></div>
       </div>
     `)

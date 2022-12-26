@@ -29,8 +29,9 @@ var MessagesView = {
   },
 
   handleClick: function(event) {
-    let username = event.target.innerText
+    let username = App.clean({input: event.target.innerText});
     Friends.toggleStatus(username);
+    $( `div[value="${ username }"` ).toggleClass('friend');
   },
 
   // clears $chats and reset all seen values
