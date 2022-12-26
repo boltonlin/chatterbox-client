@@ -3,11 +3,13 @@
 
 var RoomsView = {
 
-  $button: $('#rooms button'),
+  $add: $('#rooms #addRoom'),
+  $tab: $('#rooms #keepTabs'),
   $select: $('#rooms select'),
 
   initialize: function() {
-    RoomsView.$button.on('click', RoomsView.handleClick);
+    RoomsView.$add.on('click', RoomsView.handleClick);
+    RoomsView.$tab.on('click', RoomsView.handleTab);
     RoomsView.$select.on('change', RoomsView.handleChange);
   },
 
@@ -26,6 +28,10 @@ var RoomsView = {
     RoomsView.$select.append(template({roomname: roomname}));
   },
 
+  selectRoom: function(roomname) {
+    RoomsView.$select.val(roomname);
+  },
+
   handleChange: function(event) {
     Rooms.change(RoomsView.$select.val());
   },
@@ -36,6 +42,11 @@ var RoomsView = {
     RoomsView.renderRoom(roomname);
     RoomsView.$select.val(roomname);
     Rooms.change(roomname);
+  },
+
+  // should talk to tabs and add a tab with room name
+  handleTab: function(event) {
+
   }
 
 };
