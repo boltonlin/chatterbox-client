@@ -117,11 +117,10 @@ form input[type=text] {
 /* Style the buttons that are used to open the tab content */
 #tablist button {
     background-color: inherit;
-    float: center;
-    border: none;
-    outline: none;
     cursor: pointer;
-    padding: 14px 16px;
+    display: inline-block;
+    border: none;
+    padding: 15px;
     transition: 0.3s;
 }
 
@@ -133,4 +132,8 @@ form input[type=text] {
 /* Create an active/current tablink class */
 #tablist button.active {
     background-color: #ccc;
+}
+
+.tab i:hover {
+    color: red;
 }
