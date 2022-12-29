@@ -2,29 +2,37 @@ var TabsView = {
 
   $tablist: $('#tablist'),
 
-  initialize: function() {
-
-  },
-
   renderTab: function(tab) {
-    let template = _.template(
-      '<button class="tab" value="<%- tab %>"><%- tab %></button>'
-    );
-    let $tab = $(template({tab: tab}));
-    $tab.on('click', TabsView.handleClick);
+    let tabTemplate = _.template(`
+      <button class="tab" value="<%- tab %>"><%- tab %>
+      <i class="fa-solid fa-xmark"></i></button>
+    `);
+    let $tab = $(tabTemplate({tab: tab}));
+    $tab.on('click', null, tab, TabsView.handleClick);
     TabsView.$tablist.append($tab);
   },
 
   handleClick: function (event) {
-    if (TabsView.$tablist.val() !== event.target.value) {
-      // untoggle all other tabs
-      for (let tab of TabsView.$tablist.children())
-        if ($(tab).attr('class').includes('selected'))
-          $(tab).toggleClass('selected');
-      $(this).toggleClass('selected');
-      TabsView.$tablist.val(event.target.value);
-      Tabs.change(event.target.value);
-    }
+    let tabName = event.target.value ? event.target.value : event.data;
+    let tabSelector = TabsView.$tablist.find(`[value="${tabName}"]`);
+    if (!!event.target.value) {
+      if (TabsView.$tablist.val() !== event.target.value) {
+        // untoggle all other tabs
+        let otherTabs = TabsView.$tablist.children();
+        for (let otherTab of otherTabs) {
+          if ($(otherTab).attr('class').includes('selected'))
+            $(otherTab).toggleClass('selected');
+        }
+        $(this).toggleClass('selected');
+        TabsView.$tablist.val(tabName);
+        Tabs.change(tabName);
+      }
+    } else TabsView.handleClose(tabName, tabSelector)
+  },
+
+  handleClose: function (tabname, selector) {
+    Tabs.close(tabname);
+    selector.remove();
   },
 
 };

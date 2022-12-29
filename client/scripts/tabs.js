@@ -8,8 +8,10 @@ var Tabs = {
   // on add store all messages in that value
   // note it stores messages from oldest to newest
   add: function (roomname) {
-    Tabs._list[roomname] = Messages.get(roomname);
-    TabsView.renderTab(roomname);
+    if (!Tabs._list[roomname]) {
+      Tabs._list[roomname] = Messages.get(roomname);
+      TabsView.renderTab(roomname);
+    }
   },
 
   // needed??
@@ -17,11 +19,29 @@ var Tabs = {
     return Tabs._current;
   },
 
-  // should change chats to only display messages from that room
-  // also request updated messages for that room
-  // probably set room too
+  // changes room
   change: function (tab) {
     Rooms.change(tab);
+    // mark 'read' on all the messages upon change
   },
+
+  // close tab
+  close: function (tabname) {
+    delete Tabs._list[tabname];
+    // if there are tabs, go to the first remaining tab
+    if (!Tabs.isEmpty())
+      Rooms.change(Object.keys(Tabs._list)[0]);
+  },
+
+  isEmpty: function () {
+    if (!Object.keys(Tabs._list).length) return true;
+    else return false;
+  },
+
+  // should go through each tab
+  refresh: function () {
+
+  },
+
 
 };
