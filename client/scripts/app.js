@@ -16,7 +16,7 @@ var App = {
     MessagesView.initialize();
 
     App.startSpinner();
-    App.fetch(App.stopSpinner);
+    App.refresh(App.stopSpinner);
 
     setInterval(() => {
       App.startSpinner();
@@ -27,25 +27,24 @@ var App = {
   // only for initial
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
-      console.log(data);
       Messages.add(data);
       Rooms.add(data);
       Rooms.set(Rooms.get());
+      callback();
     });
-    callback();
   },
 
   // should fetch messages only for selected room
   fetchRoom: function (roomname, callback = ()=>{}) {
     Parse.readRoom(roomname, (data) => {
       Messages.add(data);
-      Rooms.add(data);
+      callback();
     });
-    callback();
   },
 
   refresh: function (cb = ()=>{}) {
     App.startSpinner();
+    App.fetch();
     App.fetchRoom(Rooms.get(), cb);
   },
 
