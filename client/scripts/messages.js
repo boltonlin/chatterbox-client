@@ -19,8 +19,8 @@ var Messages = {
 
   get: function (roomname) {
     if (!!roomname) {
-      return Object.values(Messages._list).filter(message =>
-        message.roomname === roomname);
+      return Object.values(Messages._list)
+                   .filter(message => message.roomname === roomname);
     } else return Object.values(Messages._list);
   },
 
