@@ -29,7 +29,7 @@ var Rooms = {
   change: function (roomname) {
     Rooms.set(roomname);
     App.startSpinner();
-    App.fetchRoom(roomname, App.stopSpinner);
+    App.fetchRoom(roomname, App.renderRoomCB);
   },
 
   exists: function (roomname) {

@@ -10,17 +10,16 @@ var MessagesView = {
     // when this view loads.
   },
 
-  render: function(messages, roomname) {
+  render: function(roomname) {
     MessagesView.clear();
     Messages.get().forEach((message) => {
-      if (!message.seen && message.roomname === roomname) {
+      if (!message.seen && message.roomname === roomname)
         MessagesView.renderMessage(message);
-        message.seen = true;
-      }
     });
   },
 
-  // renders message and attaches any events to the individual chat element
+  // renders message and attaches any events to the individual chat
+  // element, as well marks seen if rendered
   renderMessage: function(message) {
     // Messages.clean(message);
     let $chat = $(MessageView.render(message));
@@ -29,6 +28,7 @@ var MessagesView = {
     if (Friends.exists(message.username))
       $chat.toggleClass('friend');
     MessagesView.$chats.prepend($chat);
+    message.seen = true;
   },
 
   handleClick: function(event) {

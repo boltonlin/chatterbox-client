@@ -15,16 +15,13 @@ var App = {
     RoomsView.initialize();
     MessagesView.initialize();
 
-    App.startSpinner();
-    App.refresh(App.stopSpinner);
+    App.refresh(App.renderRoomCB);
 
     setInterval(() => {
-      App.startSpinner();
-      App.refresh(App.stopSpinner);
+      App.refresh(App.renderRoomCB);
     }, 5000);
   },
 
-  // only for initial
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
       Messages.add(data);
@@ -42,10 +39,10 @@ var App = {
     });
   },
 
-  refresh: function (cb = ()=>{}) {
+  refresh: function (callback = ()=>{}) {
     App.startSpinner();
     App.fetch();
-    App.fetchRoom(Rooms.get(), cb);
+    App.fetchRoom(Rooms.get(), callback);
   },
 
   startSpinner: function() {
@@ -56,6 +53,12 @@ var App = {
   stopSpinner: function() {
     App.$spinner.fadeOut('fast');
     FormView.setStatus(false);
+  },
+
+  // typical callback used to render messages for current room
+  renderRoomCB: function () {
+    MessagesView.render(Rooms.get());
+    App.stopSpinner();
   },
 
   clean: _.template('<%- input %>'),

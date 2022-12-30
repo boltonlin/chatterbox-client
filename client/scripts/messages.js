@@ -14,9 +14,9 @@ var Messages = {
         Messages._size++;
       }
     });
-    MessagesView.render(Object.values(Messages._list), Rooms.get());
   },
 
+  // returns an array of messages
   get: function (roomname) {
     if (!!roomname) {
       return Object.values(Messages._list)
@@ -34,9 +34,15 @@ var Messages = {
   },
 
   post: function (username, text, roomname) {
-    let message = {username: username, text: text, roomname: roomname}
-    Parse.create(message);
-    App.refresh(App.stopSpinner);
+    let message = {
+      username: username,
+      text: text,
+      roomname: roomname
+    }
+    App.startSpinner();
+    Parse.create(message, () => {
+      App.refresh(App.renderRoomCB);
+    });
   },
 
   refreshSeen: function () {
