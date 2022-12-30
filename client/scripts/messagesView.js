@@ -27,8 +27,12 @@ var MessagesView = {
     $username.on('click', MessagesView.handleClick);
     if (Friends.exists(message.username))
       $chat.toggleClass('friend');
+    if (!message.read) {
+      // attach unread css that switches off on hover
+    }
     MessagesView.$chats.prepend($chat);
     message.seen = true;
+    message.read = true;
   },
 
   handleClick: function(event) {

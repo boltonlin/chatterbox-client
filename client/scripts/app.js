@@ -15,6 +15,9 @@ var App = {
     RoomsView.initialize();
     MessagesView.initialize();
 
+    App.fetch(() => {
+      Rooms.set(Rooms.get());
+    });
     App.refresh(App.renderRoomCB);
 
     setInterval(() => {
@@ -26,7 +29,6 @@ var App = {
     Parse.readAll((data) => {
       Messages.add(data);
       Rooms.add(data);
-      Rooms.set(Rooms.get());
       callback();
     });
   },
