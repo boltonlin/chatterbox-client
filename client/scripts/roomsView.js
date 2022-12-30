@@ -21,11 +21,17 @@ var RoomsView = {
     });
   },
 
+  // TODO: get shortname to work with tabs too, might have to store
+  // shortnames in rooms or smth
   renderRoom: function(roomname) {
+    let shortname = roomname.slice(0, 25);
     let template = _.template(
-      '<option value="<%- roomname %>"><%- roomname %></option>'
+      '<option value="<%- roomname %>"><%- shortname %></option>'
       );
-    RoomsView.$select.append(template({roomname: roomname}));
+    RoomsView.$select.append(template({
+      roomname: roomname,
+      shortname: shortname
+    }));
   },
 
   selectRoom: function(roomname) {
