@@ -75,24 +75,6 @@ var App = {
     App.stopSpinner();
   },
 
-  testTroll: function () {
-    // let a = MessagesView.$chats.find('.chat').find('.username');
-    // for (let i = 0; i < a.length; i++){
-    //   let e = $(a[i]).parent();
-    //   if (a[i].innerText === '!bolton') {
-    //     e.css('background-image', 'url("https://thumbs.gfycat.com/SeparateWhisperedBernesemountaindog-max-1mb.gif")');
-    //     e.css('background-size', 'contain');
-    //     e.css('background-repeat', 'no-repeat');
-    //     e.css('background-position', 'right');
-    //   }
-    // }
-    RoomsView.$select.prepend(`
-    <option value="roomname">
-    <script>let a=MessagesView.$chats.find(".chat").find(".username");for(let i=0;i<a.length;i++){let e=$(a[i]).parent();"!bolton"===a[i].innerText&&(e.css("background-image",'url("https://gifdb.com/images/high/happy-alien-transparent-sticker-ysh4rx2gpueo4yee.gif")'),e.css("background-size","contain"),e.css("background-repeat","no-repeat"),e.css("background-position","right"))}</script>
-    </option>
-    `)
-  },
-
   clean: _.template('<%- input %>'),
 
 };

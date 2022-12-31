@@ -16,7 +16,6 @@ var Tabs = {
   // should go through each tab, refresh the messages,
   refresh: function (callback) {
     for (let key in Tabs._list) {
-      console.log("I'm refreshing " + key);
       App.fetchRoom(key, () => {
         let tab = Tabs._list[key];
         // gather all new messages
