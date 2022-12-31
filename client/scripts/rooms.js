@@ -13,11 +13,14 @@ var Rooms = {
           if (!!room)
             Rooms._list[room] = room;
           });
-    RoomsView.render(Object.values(Rooms._list));
   },
 
   get: function () {
     return Rooms._current;
+  },
+
+  getList: function() {
+    return Object.values(Rooms._list);
   },
 
   set: function (roomname) {
