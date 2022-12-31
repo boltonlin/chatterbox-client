@@ -29,6 +29,10 @@ var MessagesView = {
       $chat.toggleClass('friend');
     if (!message.read) {
       // attach unread css that switches off on hover
+      $chat.toggleClass('unread');
+      $chat.on('mouseenter', (event) => {
+        $(event.target).removeClass('unread');
+      });
     }
     MessagesView.$chats.prepend($chat);
     message.seen = true;

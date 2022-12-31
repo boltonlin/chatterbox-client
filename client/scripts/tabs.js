@@ -1,28 +1,78 @@
 // TODO: want to make a list of refreshables and add each tab to
 // the refreshables which at set intervals will refresh all tabs
 var Tabs = {
-
   _list: {},
   _current: undefined,
+  _handler: undefined,
+
+  // should start the handler
+  initialize: function () {
+    // Tabs._handler = setInterval(() => {
+    //   console.log("I'm refreshing!");
+    //   Tabs.refresh();
+    // }, 5000);
+  },
+
+  // should go through each tab, refresh the messages,
+  refresh: function (callback) {
+    for (let key in Tabs._list) {
+      console.log("I'm refreshing " + key);
+      App.fetchRoom(key, () => {
+        let tab = Tabs._list[key];
+        // gather all new messages
+        let newMessages =
+          Messages.get(key)
+                  .filter(message => !message.read)
+                  .map(message => {
+                    message.read = false;
+                    return message;
+                  });
+        // push those new messages to the individual tabs
+        if (newMessages.length &&
+            newMessages.length !== tab['unreadCount']) {
+          tab['messages'] = tab['messages'].concat(newMessages);
+          tab['unreadCount'] = newMessages.length;
+          TabsView.markTab(tab['view'], tab['unreadCount']);
+        } else {
+          Tabs.checkUnreads(tab);
+        }
+        callback();
+      });
+    }
+  },
+
+  // should kill the handler
+  terminate: function() {
+    clearInterval(Tabs._handler);
+    Tabs._handler = undefined;
+  },
+
+  checkUnreads: function(tab) {
+    let counter = 0;
+    tab['unreadCount'] = tab['messages'].reduce(
+      (unreadCount, message) => {
+        if (!message.read) return unreadCount + 1;
+        else return unreadCount;
+      }, 0)
+    if (tab['unreadCount'] === 0)
+      TabsView.killBadge(tab['view']);
+    return counter;
+  },
 
   // on add store all messages in that value
   // note it stores messages from oldest to newest
   add: function (roomname) {
+    Tabs._current = roomname;
+    // if first tab, initialize the timer
+    if (Tabs.isEmpty())
+      Tabs.initialize();
     if (!Tabs._list[roomname]) {
-      Tabs._list[roomname] = Messages.get(roomname);
-      TabsView.renderTab(roomname);
+      Tabs._list[roomname] = {
+        messages: Messages.get(roomname),
+        unreadCount: 0
+      };
+      Tabs._list[roomname]['view'] = TabsView.renderTab(roomname);
     }
-  },
-
-  // needed??
-  get: function() {
-    return Tabs._current;
-  },
-
-  // changes room
-  change: function (tab) {
-    Rooms.change(tab);
-    // mark 'read' on all the messages upon change
   },
 
   // close tab
@@ -30,7 +80,35 @@ var Tabs = {
     delete Tabs._list[tabname];
     // if there are tabs, go to the first remaining tab
     if (!Tabs.isEmpty())
-      Rooms.change(Object.keys(Tabs._list)[0]);
+      Rooms.change(Object.keys(Tabs._list)[0])
+    else
+      Tabs.terminate();
+  },
+
+  // returns all room names that are tabbed
+  get: function() {
+    return Tabs._list;
+  },
+
+  // changes room and sets read true
+  // .read and .seen are different
+  // .seen tracks render state on automatic refreshes and is reset
+  // whenever rooms are changed
+  // .read means it has been rendered but is NOT reset whenever
+  // rooms are reset
+  change: function (tabname) {
+    let didRead = false;
+    Rooms.change(tabname);
+    Tabs._current = tabname;
+    Tabs._list[tabname]['messages'].forEach((message) => {
+      if (!message.read) {
+        message.read = true;
+        Tabs._list[tabname]['unreadCount']--;
+        didRead = true;
+      }
+    })
+    if (didRead)
+      TabsView.killBadge(Tabs._list[tabname]['view']);
   },
 
   isEmpty: function () {
@@ -38,10 +116,6 @@ var Tabs = {
     else return false;
   },
 
-  // should go through each tab
-  refresh: function () {
-
-  },
 
 
 };

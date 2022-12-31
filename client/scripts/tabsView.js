@@ -10,6 +10,18 @@ var TabsView = {
     let $tab = $(tabTemplate({tab: tab}));
     $tab.on('click', null, tab, TabsView.handleClick);
     TabsView.$tablist.append($tab);
+    return $tab;
+  },
+
+  markTab: function ($tab, count) {
+    let badgeTemplate = _.template(`
+      <span class="tab__badge"><%= count %></span>
+    `);
+    $tab.append(badgeTemplate({count: count}));
+  },
+
+  killBadge: function ($tab) {
+    $tab.find('.tab__badge').remove();
   },
 
   handleClick: function (event) {

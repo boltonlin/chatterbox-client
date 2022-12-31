@@ -81,6 +81,10 @@ form input[type=text] {
     background-color: #ddd;
 }
 
+.unread {
+    background-color: #db9191;
+}
+
 .spinner {
     float: right;
     height: 46px;
@@ -119,6 +123,7 @@ form input[type=text] {
     background-color: inherit;
     cursor: pointer;
     display: inline-block;
+    position: relative;
     border: none;
     padding: 15px;
     transition: 0.3s;
@@ -137,3 +142,16 @@ form input[type=text] {
 .tab i:hover {
     color: red;
 }
+
+.tab__badge {
+    background-color: #fa3e3e;
+    border-radius: 2px;
+    color: white;
+
+    padding: 1px 3px;
+    font-size: 10px;
+
+    position: absolute; /* Position the badge within the relatively positioned button */
+    top: 2px;
+    right: 2px;
+  }
