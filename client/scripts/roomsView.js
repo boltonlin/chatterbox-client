@@ -13,7 +13,8 @@ var RoomsView = {
     RoomsView.$select.on('change', RoomsView.handleChange);
   },
 
-  render: function(roomlist) {
+  render: function() {
+    let roomlist = Rooms.getList();
     let renderedRooms = $.map(RoomsView.$select.find($('option')), option => option.value)
     roomlist.forEach(room => {
       if (!renderedRooms.includes(room))
@@ -53,6 +54,12 @@ var RoomsView = {
   // should talk to tabs and add a tab with room name
   handleTab: function(event) {
     Tabs.add(Rooms.get());
-  }
+  },
+
+  setStatus: function(active) {
+    var status = active ? 'true' : null;
+    RoomsView.$add.attr('disabled', status);
+    RoomsView.$tab.attr('disabled', status);
+  },
 
 };
