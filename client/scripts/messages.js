@@ -26,10 +26,11 @@ var Messages = {
 
   isValid: function(message) {
     if (!Messages._list[message.message_id] &&
-        !(message.username === null &&
-        message.text === null &&
-        message.roomname === null))
-    return true;
+        !(message.username === null ||
+        message.text === null ||
+        message.roomname === null)) {
+      return true;
+    }
     else return false;
   },
 
@@ -62,7 +63,6 @@ var Messages = {
     let str = '';
     unreadMessages.forEach((message, index) => {
       if (!!message.text.match(regex) && !message.notified) {
-        console.log(message);
         if (counter > 0) str = str.concat('\n');
         str = str.concat('You were mentioned by ' + message.username + ' in room ' + message.roomname + '!');
         message.notified = true;
@@ -70,11 +70,8 @@ var Messages = {
         counter++;
       }
     });
-    if (counter) {
-      App.pauseTimer();
+    if (counter)
       window.alert(str);
-      App.startTimer();
-    }
   },
 
 };
