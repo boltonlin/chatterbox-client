@@ -3,6 +3,7 @@
 
 var RoomsView = {
 
+  $rooms: $('#rooms'),
   $add: $('#rooms #addRoom'),
   $tab: $('#rooms #keepTabs'),
   $select: $('#rooms select'),
