@@ -10,21 +10,26 @@ var MessagesView = {
     // when this view loads.
   },
 
-  render: function() {
+  render: function(filter, options) {
     MessagesView.clear();
-    Messages.get(Rooms.get()).forEach((message) => {
-      if (!message.seen)
-        MessagesView.renderMessage(message);
-    });
+    filter ??= message => message.roomname === Rooms.get();
+    Messages.get()
+      .filter(filter)
+      .forEach((message) => {
+        if (!message.seen)
+          MessagesView.renderMessage(message, options);
+      });
   },
 
   // renders message and attaches any events to the individual chat
   // element, as well marks seen if rendered
-  renderMessage: function(message) {
+  // options: 'f' - don't highlight friends
+  //          'r' - include roomname
+  renderMessage: function(message, options = '') {
     let $chat = $(MessageView.render(message));
     let $username = $chat.find('.username');
-    $username.on('click', MessagesView.handleClick);
-    if (Friends.exists(message.username))
+    $username.on('click', null, options, MessagesView.handleClick);
+    if (Friends.exists(message.username) && !options.includes('f'))
       $chat.toggleClass('friend');
     if (!message.read) {
       // attach unread css that switches off on hover
@@ -40,15 +45,34 @@ var MessagesView = {
         message.acknowledged = true;
       })
     }
+    if (options.includes('r')) {
+      $chat.append($(`
+        <div class="roominfo">in room
+        ${App.clean({input: message.roomname})}
+        </div>
+      `));
+    }
     MessagesView.$chats.prepend($chat);
     message.seen = true;
     message.read = true;
   },
 
   handleClick: function(event) {
+    console.log(event.data);
     let username = App.clean({input: event.target.innerText});
-    Friends.toggleStatus(username);
-    $( `div[value="${ username }"` ).toggleClass('friend');
+    if (!event.data.includes('f')) {
+      Friends.toggleStatus(username);
+      if (Friends.exists(username))
+        $( `div[value="${ username }"` ).addClass('friend');
+      else
+        $( `div[value="${ username }"` ).removeClass('friend');
+    } else {
+      if (confirm(`This will remove ${ username } from your Friends list, are you sure?`)) {
+        Friends.toggleStatus(username);
+        MessagesView.render(message =>
+          Friends.exists(message.username), 'fr');
+      }
+    }
   },
 
   // clears $chats and reset all seen values

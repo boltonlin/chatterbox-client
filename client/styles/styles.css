@@ -65,22 +65,29 @@ form input[type=text] {
 }
 
 #send .username {
-    font-weight: 800;
+    font-weight: 700;
 }
 
 .chat {
-    padding: 5px;
+    padding: 10px;
     margin-bottom: 5px;
     background-color: #eee;
+    border-radius: 15px;
 }
 
 .chat .username {
-    font-weight: 800;
+    font-weight: 700;
 }
 
 .chat .username:hover {
     cursor: pointer;
     color: red;
+}
+
+.chat .roominfo {
+    font-style: italic;
+    font-size: 0.75em;
+    text-align: right;
 }
 
 .chat:hover {
@@ -176,5 +183,9 @@ form input[type=text] {
 
 a.nav-link {
     cursor: pointer;
+}
+
+a.nav-link.active {
+    font-weight: 600;
 }
 

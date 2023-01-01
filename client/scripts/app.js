@@ -16,6 +16,7 @@ var App = {
     FormView.initialize();
     RoomsView.initialize();
     MessagesView.initialize();
+    NavView.initialize();
 
     App.startSpinner();
     App.fetch(()=>{
@@ -31,14 +32,15 @@ var App = {
   },
 
   startTimer: function () {
-    App.handler = setInterval(() => {
+    App.handler = setInterval(()=>{
       App.startSpinner();
       App.refresh(App.stopSpinner);
-     }, 5000);
+    }, 5000);
   },
 
   pauseTimer: function () {
     clearInterval(App.handler);
+    App.handler = null;
   },
 
   fetch: function(callback = ()=>{}) {
@@ -58,11 +60,15 @@ var App = {
   },
 
   refresh: function (callback = ()=>{}) {
-    App.fetch(RoomsView.render);
-    App.fetchRoom(Rooms.get(), MessagesView.render);
-    Tabs.refresh();
-    Messages.checkMentions();
-    callback();
+    App.fetch(()=>{
+      RoomsView.render();
+      App.fetchRoom(Rooms.get(), ()=>{
+        MessagesView.render();
+        Tabs.refresh();
+        Messages.checkMentions();
+        callback();
+      });
+    });
   },
 
   startSpinner: function() {
