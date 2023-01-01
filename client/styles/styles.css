@@ -6,13 +6,13 @@ body {
 }
 
 #main, #chats {
-    width: 500px;
+    width: 700px;
     margin: auto;
     text-align: left;
     background: white;
     padding: 50px 60px;
     border: solid #ddd;
-    border-width: 0 1px 1px 1px;
+    border-width: 0px 1px 1px 1px;
 }
 
 #main h1 {
@@ -46,6 +46,11 @@ body {
     line-height: 13px;
 }
 
+button {
+    border: solid rgb(107, 107, 107);
+    border-width: 1px;
+}
+
 form {
     padding: 20px;
     padding-left: 0;
@@ -54,7 +59,7 @@ form {
 
 form input[type=text] {
     margin-right: 10px;
-    width: 70%;
+    width: 85%;
     font-size: 12px;
     padding: 5px;
 }
@@ -74,6 +79,7 @@ form input[type=text] {
 }
 
 .chat .username:hover {
+    cursor: pointer;
     color: red;
 }
 
@@ -115,10 +121,11 @@ form input[type=text] {
 /* Style the tab */
 #tablist {
     margin: auto;
-    width: 500px;
+    width: 700px;
     overflow: hidden;
     padding: 0px 60px;
-    border: 1px solid #ccc;
+    border: solid #ddd;
+    border-width: 0px 1px 1px 1px;
     background-color: #f1f1f1;
 }
 
@@ -158,4 +165,16 @@ form input[type=text] {
     position: absolute; /* Position the badge within the relatively positioned button */
     top: 2px;
     right: 2px;
-  }
+}
+
+.nav {
+    width: 700px;
+    margin: auto;
+    border: solid #ddd;
+    border-width: 0px 1px 1px 1px;
+}
+
+a.nav-link {
+    cursor: pointer;
+}
+
