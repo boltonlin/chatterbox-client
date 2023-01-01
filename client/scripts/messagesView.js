@@ -10,10 +10,10 @@ var MessagesView = {
     // when this view loads.
   },
 
-  render: function(roomname) {
+  render: function() {
     MessagesView.clear();
-    Messages.get().forEach((message) => {
-      if (!message.seen && message.roomname === roomname)
+    Messages.get(Rooms.get()).forEach((message) => {
+      if (!message.seen)
         MessagesView.renderMessage(message);
     });
   },
@@ -21,7 +21,6 @@ var MessagesView = {
   // renders message and attaches any events to the individual chat
   // element, as well marks seen if rendered
   renderMessage: function(message) {
-    // Messages.clean(message);
     let $chat = $(MessageView.render(message));
     let $username = $chat.find('.username');
     $username.on('click', MessagesView.handleClick);

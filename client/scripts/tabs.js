@@ -3,18 +3,9 @@
 var Tabs = {
   _list: {},
   _current: undefined,
-  _handler: undefined,
-
-  // should start the handler
-  initialize: function () {
-    // Tabs._handler = setInterval(() => {
-    //   console.log("I'm refreshing!");
-    //   Tabs.refresh();
-    // }, 5000);
-  },
 
   // should go through each tab, refresh the messages,
-  refresh: function (callback) {
+  refresh: function () {
     for (let key in Tabs._list) {
       App.fetchRoom(key, () => {
         let tab = Tabs._list[key];
@@ -32,18 +23,9 @@ var Tabs = {
           tab['messages'] = tab['messages'].concat(newMessages);
           tab['unreadCount'] = newMessages.length;
           TabsView.markTab(tab['view'], tab['unreadCount']);
-        } else {
-          Tabs.checkUnreads(tab);
-        }
-        callback();
+        } else Tabs.checkUnreads(tab);
       });
     }
-  },
-
-  // should kill the handler
-  terminate: function() {
-    clearInterval(Tabs._handler);
-    Tabs._handler = undefined;
   },
 
   checkUnreads: function(tab) {
@@ -62,9 +44,6 @@ var Tabs = {
   // note it stores messages from oldest to newest
   add: function (roomname) {
     Tabs._current = roomname;
-    // if first tab, initialize the timer
-    if (Tabs.isEmpty())
-      Tabs.initialize();
     if (!Tabs._list[roomname]) {
       Tabs._list[roomname] = {
         messages: Messages.get(roomname),
@@ -80,8 +59,6 @@ var Tabs = {
     // if there are tabs, go to the first remaining tab
     if (!Tabs.isEmpty())
       Rooms.change(Object.keys(Tabs._list)[0])
-    else
-      Tabs.terminate();
   },
 
   // returns all room names that are tabbed
@@ -97,24 +74,15 @@ var Tabs = {
   // rooms are reset
   change: function (tabname) {
     let didRead = false;
-    Rooms.change(tabname);
-    Tabs._current = tabname;
-    Tabs._list[tabname]['messages'].forEach((message) => {
-      if (!message.read) {
-        message.read = true;
-        Tabs._list[tabname]['unreadCount']--;
-        didRead = true;
-      }
-    })
-    if (didRead)
-      TabsView.killBadge(Tabs._list[tabname]['view']);
+    Rooms.change(tabname, ()=>{
+      Tabs._current = tabname;
+      Tabs.checkUnreads(Tabs._list[tabname]);
+    });
   },
 
   isEmpty: function () {
     if (!Object.keys(Tabs._list).length) return true;
     else return false;
   },
-
-
 
 };

@@ -29,10 +29,16 @@ var Rooms = {
   },
 
   // sets _current then asks the app to refresh
-  change: function (roomname) {
+  change: function (roomname, callback = ()=>{}) {
     Rooms.set(roomname);
+    App.pauseTimer();
     App.startSpinner();
-    App.fetchRoom(roomname, App.renderRoomCB);
+    App.fetchRoom(roomname, ()=>{
+      MessagesView.render();
+      callback();
+      App.stopSpinner();
+      App.startTimer();
+    });
   },
 
   exists: function (roomname) {

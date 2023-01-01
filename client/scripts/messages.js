@@ -41,7 +41,10 @@ var Messages = {
     }
     App.startSpinner();
     Parse.create(message, () => {
-      App.refresh(App.renderRoomCB);
+      App.refresh(() => {
+        MessagesView.render();
+        App.stopSpinner();
+      });
     });
   },
 

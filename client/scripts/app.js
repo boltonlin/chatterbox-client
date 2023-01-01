@@ -8,6 +8,8 @@ var App = {
 
   username: 'anonymous',
 
+  handler: null,
+
   initialize: function() {
     App.username = window.location.search.substr(10);
 
@@ -16,17 +18,27 @@ var App = {
     MessagesView.initialize();
 
     App.startSpinner();
-    App.fetch(() => {
+    App.fetch(()=>{
       RoomsView.render();
       Rooms.set('lobby');
     });
-    App.fetchRoom(Rooms.get(), App.renderRoomCB);
+    App.fetchRoom(Rooms.get(), ()=>{
+      MessagesView.render();
+      App.stopSpinner();
+    });
 
-    setInterval(() => {
+    App.startTimer();
+  },
+
+  startTimer: function () {
+    App.handler = setInterval(() => {
       App.startSpinner();
-      App.refresh(App.renderRoomCB);
-      Tabs.refresh(App.stopSpinner);
-    }, 5000);
+      App.refresh(App.stopSpinner);
+     }, 5000);
+  },
+
+  pauseTimer: function () {
+    clearInterval(App.handler);
   },
 
   fetch: function(callback = ()=>{}) {
@@ -47,10 +59,11 @@ var App = {
 
   refresh: function (callback = ()=>{}) {
     App.fetch(RoomsView.render);
-    App.fetchRoom(Rooms.get(), callback);
+    App.fetchRoom(Rooms.get(), MessagesView.render);
+    Tabs.refresh();
+    callback();
   },
 
-  // TODO: find a way to also stop user from clicking close tabs
   startSpinner: function() {
     App.$spinner.show();
     RoomsView.setStatus(true);
@@ -66,13 +79,7 @@ var App = {
     FormView.setStatus(false);
     let tablist = Tabs.get()
     for(let tab in tablist)
-      tablist[tab]['view'].on('click', null, tab, TabsView.handleClick);;
-  },
-
-  // typical callback used to render messages for current room
-  renderRoomCB: function () {
-    MessagesView.render(Rooms.get());
-    App.stopSpinner();
+      tablist[tab]['view'].on('click', null, tab, TabsView.handleClick);
   },
 
   clean: _.template('<%- input %>'),
