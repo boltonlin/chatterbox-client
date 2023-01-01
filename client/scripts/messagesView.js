@@ -33,6 +33,13 @@ var MessagesView = {
         $(event.target).removeClass('unread');
       });
     }
+    if (message.mention && !message.acknowledged) {
+      $chat.addClass('mention');
+      $chat.on('mouseenter', null, message, (event) => {
+        $(event.target).removeClass('mention');
+        message.acknowledged = true;
+      })
+    }
     MessagesView.$chats.prepend($chat);
     message.seen = true;
     message.read = true;

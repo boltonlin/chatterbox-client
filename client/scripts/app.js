@@ -21,13 +21,13 @@ var App = {
     App.fetch(()=>{
       RoomsView.render();
       Rooms.set('lobby');
+      App.fetchRoom(Rooms.get(), ()=>{
+        Messages.checkMentions();
+        MessagesView.render();
+        App.stopSpinner();
+        App.startTimer();
+      });
     });
-    App.fetchRoom(Rooms.get(), ()=>{
-      MessagesView.render();
-      App.stopSpinner();
-    });
-
-    App.startTimer();
   },
 
   startTimer: function () {
@@ -61,6 +61,7 @@ var App = {
     App.fetch(RoomsView.render);
     App.fetchRoom(Rooms.get(), MessagesView.render);
     Tabs.refresh();
+    Messages.checkMentions();
     callback();
   },
 

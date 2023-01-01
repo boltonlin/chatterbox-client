@@ -85,6 +85,10 @@ form input[type=text] {
     background-color: #db9191;
 }
 
+.mention {
+    background-color: #89dcbb;
+}
+
 .spinner {
     float: right;
     height: 46px;

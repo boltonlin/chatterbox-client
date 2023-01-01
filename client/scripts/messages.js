@@ -53,10 +53,28 @@ var Messages = {
       Messages._list[id].seen = false;
   },
 
-  clean: function (message) {
-    message.username = App.clean({input: message.username});
-    message.text = App.clean({input: message.text});
-    message.roomname = App.clean({input: message.roomname});
-  }
+  checkMentions: function () {
+    let counter = 0;
+    let regex = new RegExp(`(^|\\s)\\@(${App.username})(\\s|$)`, 'g');
+    let unreadMessages =
+      Messages.get()
+              .filter(message => !message.read);
+    let str = '';
+    unreadMessages.forEach((message, index) => {
+      if (!!message.text.match(regex) && !message.notified) {
+        console.log(message);
+        if (counter > 0) str = str.concat('\n');
+        str = str.concat('You were mentioned by ' + message.username + ' in room ' + message.roomname + '!');
+        message.notified = true;
+        message.mention = true;
+        counter++;
+      }
+    });
+    if (counter) {
+      App.pauseTimer();
+      window.alert(str);
+      App.startTimer();
+    }
+  },
 
 };
