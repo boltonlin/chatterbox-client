@@ -104,12 +104,12 @@ form input[type=text] {
 
 .spinner {
     float: right;
-    height: 46px;
+    height: 5px;
     margin-bottom: 5px;
 }
 
 .spinner img {
-    padding: 10px;
+    padding-right: 15px;
 }
 
 .friend {
