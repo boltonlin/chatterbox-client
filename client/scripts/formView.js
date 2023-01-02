@@ -6,7 +6,7 @@ var FormView = {
 
   $form: $('#send'),
   $message: $('#message'),
-  $username: $('#send .username'),
+  $username: $('#send .client-username'),
 
   initialize: function() {
     //TODO: figure out why submit form button is broken with/without comments

@@ -64,7 +64,7 @@ form input[type=text] {
     padding: 5px;
 }
 
-#send .username {
+#send .client-username {
     font-weight: 700;
 }
 
@@ -171,7 +171,7 @@ form input[type=text] {
 
     position: absolute; /* Position the badge within the relatively positioned button */
     top: 2px;
-    right: 2px;
+    left: 2px;
 }
 
 .nav {
