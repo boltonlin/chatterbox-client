@@ -26,7 +26,6 @@ var MessagesView = {
   // options: 'f' - don't highlight friends
   //          'r' - include roomname
   renderMessage: function(message, options = '') {
-    console.log(message);
     let $chat = $(MessageView.render(message));
     let $username = $chat.find('.username');
     $username.on('click', null, options, MessagesView.handleClick);
@@ -58,9 +57,7 @@ var MessagesView = {
     message.read = true;
   },
 
-  // div[value="${ username }"]
   handleClick: function(event) {
-    console.log(event.data);
     let username = App.clean({input: event.target.innerText});
     if (!event.data.includes('f')) {
       Friends.toggleStatus(username);

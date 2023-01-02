@@ -9,6 +9,7 @@ var NavView = {
   $liked: $('#liked'),
   $stats: $('#stats'),
   $allButtons: Array.from($('.nav-item a')),
+  _status: 'active',
 
   initialize: function() {
     NavView.setActive(NavView.$normal);
@@ -65,6 +66,25 @@ var NavView = {
         MessagesView.render();
         App.startTimer();
         break;
+    }
+  },
+
+  toggleStatus: function() {
+    let status = NavView._status === 'active' ? true : false;
+    if (status) {
+      NavView.$allButtons.forEach(
+        button => $(button).addClass('disabled')
+      );
+      NavView.$nav.off('click');
+      NavView.$nav.off('change');
+      NavView._status = 'inactive';
+    } else {
+      NavView.$allButtons.forEach(
+        button => $(button).removeClass('disabled')
+      );
+      NavView.$nav.on('click', NavView.handleClick);
+      NavView.$nav.on('change', NavView.handleChange);
+      NavView._status = 'active';
     }
   },
 

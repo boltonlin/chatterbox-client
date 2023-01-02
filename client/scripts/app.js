@@ -75,6 +75,7 @@ var App = {
     App.$spinner.show();
     RoomsView.setStatus(true);
     FormView.setStatus(true);
+    NavView.toggleStatus();
     let tablist = Tabs.get()
     for(let tab in tablist)
       tablist[tab]['view'].off('click');
@@ -84,6 +85,7 @@ var App = {
     App.$spinner.fadeOut('fast');
     RoomsView.setStatus(false);
     FormView.setStatus(false);
+    NavView.toggleStatus();
     let tablist = Tabs.get()
     for(let tab in tablist)
       tablist[tab]['view'].on('click', null, tab, TabsView.handleClick);
