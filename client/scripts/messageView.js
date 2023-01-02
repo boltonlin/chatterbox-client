@@ -7,7 +7,7 @@ var MessageView = {
   // TODO: Update this template accordingly.
   render: _.template(`
       <div class="chat" value="<%= message_id %>">
-        <span class="username" value="<%- username %>"><%- username %></span> (<span class="github"><%- github_handle %></span>)
+        <span class="username" value="<%- username %>"><%- username %></span>
         <i class="fa-heart"></i>
         <div class="messageText"><%- text %></div>
       </div>
