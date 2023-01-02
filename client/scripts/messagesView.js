@@ -94,7 +94,7 @@ var MessagesView = {
     let id = $chat.attr('value');
     let $heart = event.data[1];
     let options = event.data[2];
-    console.log(options);
+    // console.log(options);
     let message = Messages.get(id);
     if (!message.liked) {
       $heart.removeClass('fa-regular');
