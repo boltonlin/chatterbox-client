@@ -57,7 +57,11 @@ var NavView = {
             }
             break;
           case 'liked':
+            MessagesView.render(message =>
+              message.liked, 'rl');
+            break;
           case 'stats':
+            break;
         }
         break;
       case 'normal':

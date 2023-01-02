@@ -35,7 +35,7 @@ var App = {
     App.handler = setInterval(()=>{
       App.startSpinner();
       App.refresh(App.stopSpinner);
-    }, 5000);
+    }, 10000);
   },
 
   pauseTimer: function () {

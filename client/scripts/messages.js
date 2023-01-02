@@ -16,12 +16,21 @@ var Messages = {
     });
   },
 
-  // returns an array of messages
-  get: function (roomname) {
-    if (!!roomname) {
-      return Object.values(Messages._list)
-                   .filter(message => message.roomname === roomname);
-    } else return Object.values(Messages._list);
+  // returns singular message if id is passed
+  // otherwise an array of messages belonging to a roomname
+  // TODO: see if get case for roomname can be factored out since render
+  // now allows filtering by room
+  get: function (identifier) {
+    if (Messages._list[identifier]) {
+      return Messages._list[identifier];
+    } else {
+      let roomname = identifier;
+      if (!!roomname) {
+        return Object.values(Messages._list)
+                     .filter(message => message.roomname === roomname);
+      } else return Object.values(Messages._list);
+    }
+
   },
 
   isValid: function(message) {

@@ -189,3 +189,18 @@ a.nav-link.active {
     font-weight: 600;
 }
 
+i.fa-heart {
+    float: right;
+}
+
+i.fa-heart-crack {
+    float: right;
+}
+
+i.fa-heart:hover {
+    color: #EB6383
+}
+
+i.fa-solid {
+    color: #EB6383
+}
